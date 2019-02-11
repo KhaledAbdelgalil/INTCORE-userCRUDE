@@ -21,7 +21,7 @@
 		  	<?php	
 		  	$us=new User(3);
 				$users = $us->all(safeGet('keywords'));
-				var_dump($users);
+				//var_dump($users);
 				foreach ($users as $user) {
 			?>
     		<tr>

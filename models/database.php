@@ -1,12 +1,12 @@
 <?php
 	class Database {
 		protected $db = null;
-		function __construct() {
+		function __construct()
+		                    {
 							
-
-						$this->connect('intcore(hello-world)', 'root', '');
-
-		}
+								$this->connect('intcore(hello-world)', 'root', '');
+								//echo "database is connected";
+							}
 
 		
 		/*public function connect($database, $uid, $pwd) {
