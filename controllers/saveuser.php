@@ -6,7 +6,8 @@
 	if($id==0) {
 
 		$name = safeGet("name");
-		User::add($name);
+		$user=new User($id);
+		$user->add($name);
 	} else {
 		$user = new User($id);
 		$user->name = safeGet("name");

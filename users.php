@@ -19,7 +19,9 @@
 	  	</thead>
 	  	<tbody>
 		  	<?php	
-				$users = User::all(safeGet('keywords'));
+		  	$us=new User(3);
+				$users = $us->all(safeGet('keywords'));
+				var_dump($users);
 				foreach ($users as $user) {
 			?>
     		<tr>
