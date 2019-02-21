@@ -4,7 +4,11 @@
 
 	class User extends generic
 	  {
-	}
+		protected  $table_name='users';
+	  	protected $arr_attributes =array('name');
+	  	protected $arr_attributes_3dd = array('?');
+
+	  }
 
 		
 	

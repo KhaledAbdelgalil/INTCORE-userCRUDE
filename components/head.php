@@ -33,6 +33,14 @@
             <li class="nav-item">
               <a class="nav-link" href="./users.php">User</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./s_users.php">S_User</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="./hosiptals.php">hosipitals</a>
+            </li>
+            
             
           </ul>
           <form action="./users.php" class="form-inline mt-2 mt-md-0">

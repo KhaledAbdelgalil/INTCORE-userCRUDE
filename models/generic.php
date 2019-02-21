@@ -1,8 +1,8 @@
 <?php
+//the approved functions as complete generic till now is (get_by_id,delete)
 	include_once('database.php');
 
 	class generic extends Database{
-		protected  $table_name='users';
 		
 public function get_by_id($id) 
 		{
@@ -23,28 +23,51 @@ public function get_by_id($id)
 				$this->{$key} = $value;
 			}
 		} 
-		public  function add($name) {
-			//$data_base=new Database();
-			$sql = "INSERT INTO ".$this->table_name." (name) VALUES (?)";
-			//Database::$db->prepare($sql)->execute([$name]);
-			$this->db->prepare($sql)->execute([$name]);
+		public  function add($arr_fields) 
+		{
+			
+			$sql = "INSERT INTO ".$this->table_name." (".implode(',',$this->arr_attributes).") VALUES (";
+			$n=1;
+			foreach ($this->arr_attributes as $a) {
+				$sql=$sql.'?';
+				if($n !=count($this->arr_attributes)) 
+				{
+					$sql=$sql." ,";
+				}
 
+					$n=$n+1;
+
+			}
+
+			$sql=$sql." )";
+
+
+			$this->db->prepare($sql)->execute($arr_fields);
 		}
 		
-		public  function delete() {
-			//$data_base=new Database();
-
+		public  function delete() 
+		{
 			$sql = "DELETE FROM ".$this->table_name. " WHERE id = $this->id;";
-
-			//Database::$db->query($sql);
 			$this->db->query($sql);
 		}
 
-		public  function save() {
-			//$data_base=new Database();
-			$sql = "UPDATE ".$this->table_name." SET name = ? WHERE id = ?;";
-			//Database::$db->prepare($sql)->execute([$this->name, $this->id]);
-			$this->db->prepare($sql)->execute([$this->name, $this->id]);
+		public  function save($arr_fields,$number) {
+			$sql = "UPDATE ".$this->table_name." SET ";
+			
+			$n=1;
+			
+			foreach ($this->arr_attributes  as $value) {
+				$sql=$sql.$value;
+				$sql=$sql." =  ?";
+				if($n != $number)
+				{ 
+					$sql=$sql.", ";
+				}
+				$n=$n+1;
+							}
+			$sql=$sql." WHERE id = ?;";
+			echo $sql;
+			$this->db->prepare($sql)->execute($arr_fields);
 		}
 
 		public  function all($keyword) {
@@ -59,14 +82,21 @@ public function get_by_id($id)
 			$statement->execute();
 			//echo $statement->fetch(PDO::FETCH_ASSOC).'<br>';
 			$templates = [];
-			while($row = $statement->fetch(PDO::FETCH_ASSOC)) {
-				$template_= new User();
-				$template_->get_by_id($row['id']);
-				$templates[]=$template_;
+			//var_dump($this);
+			while($row = $statement->fetch(PDO::FETCH_ASSOC)) 
+			{
+				$templates[]=$row;
+				
+				//$object->get_by_id($row['id']);
+				/*$this->get_by_id($row['id']);
+				$templates[]=$this;*/
 				//echo $row['id']."<br>";
-				//echo $row.'<br>';
+				/*echo "<br>";
+				var_dump($this);*/
 			}
-			//print_r($templates);
+
+			/*echo "<br>";
+			print_r($templates);*/
 			return $templates;
 		}
 	}
